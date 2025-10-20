@@ -3,917 +3,534 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>درس همزة ابن وحذفها</title>
+    <title>درس إثبات وحذف همزة ابن</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* استخدام بادئات فريدة لتجنب التداخل مع قالب بلوقر */
-        .hib-body {
+        body {
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0 !important;
-            padding: 20px !important;
+        }
+        .arabic-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        .rule-box {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
         }
-        .hib-container {
-            max-width: 1000px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            overflow: hidden;
+        .exercise-card {
+            transition: all 0.3s ease;
         }
-        .hib-header {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            color: white;
-            padding: 30px;
-            text-align: center;
-        }
-        .hib-header h1 {
-            margin: 0;
-            font-size: 2.5rem;
-            font-weight: bold;
-        }
-        .hib-content {
-            padding: 30px;
-        }
-        .hib-section {
-            margin-bottom: 40px;
-            padding: 25px;
-            border-radius: 15px;
-            border-right: 5px solid #4facfe;
-            background: #f8f9ff;
-        }
-        .hib-section h2 {
-            color: #2c3e50;
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .hib-rule-box {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            margin: 15px 0;
-            border-right: 4px solid #e74c3c;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-        .hib-example {
-            background: #e8f5e8;
-            padding: 15px;
-            border-radius: 8px;
-            margin: 10px 0;
-            border-right: 3px solid #27ae60;
-        }
-        .hib-exercise-container {
-            background: #fff3cd;
-            border-radius: 15px;
-            padding: 25px;
-            margin: 20px 0;
-            border: 2px solid #ffc107;
-        }
-        .hib-question {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            margin: 15px 0;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-        }
-        .hib-options {
-            display: grid;
-            gap: 10px;
-            margin: 15px 0;
-        }
-        .hib-option {
-            padding: 12px 20px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s;
-            background: white;
-        }
-        .hib-option:hover {
-            border-color: #4facfe;
-            background: #f0f8ff;
-        }
-        .hib-option.selected {
-            border-color: #4facfe;
-            background: #e3f2fd;
-        }
-        .hib-option.correct {
-            border-color: #27ae60;
-            background: #d4edda;
-        }
-        .hib-option.incorrect {
-            border-color: #e74c3c;
-            background: #f8d7da;
-        }
-        .hib-btn {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: bold;
-            transition: transform 0.2s;
-        }
-        .hib-btn:hover {
+        .exercise-card:hover {
             transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
         }
-        .hib-result {
-            padding: 15px;
-            border-radius: 8px;
-            margin: 10px 0;
-            font-weight: bold;
-            text-align: center;
-        }
-        .hib-correct-result {
-            background: #d4edda;
+        .correct {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
             color: #155724;
-            border: 1px solid #c3e6cb;
         }
-        .hib-incorrect-result {
-            background: #f8d7da;
+        .incorrect {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
             color: #721c24;
-            border: 1px solid #f5c6cb;
         }
-        .hib-score-board {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 20px;
-            border-radius: 15px;
-            text-align: center;
-            margin: 20px 0;
-        }
-        .hib-input-field {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            font-size: 1rem;
-            margin: 10px 0;
-        }
-        .hib-input-field:focus {
-            outline: none;
-            border-color: #4facfe;
-        }
-        .hib-tab-container {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-        .hib-tab {
-            padding: 12px 20px;
-            background: #f8f9fa;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s;
-        }
-        .hib-tab.active {
-            background: #4facfe;
-            color: white;
-        }
-        .hib-tab-content {
-            display: none;
-        }
-        .hib-tab-content.active {
-            display: block;
-        }
-        .hib-highlight {
-            background: #fff3cd;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-weight: bold;
-        }
-        .hib-draggable-item {
-            background: white;
-            padding: 12px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            cursor: grab;
-            transition: all 0.3s;
-            text-align: center;
-            font-weight: bold;
-        }
-        .hib-draggable-item:hover {
-            border-color: #4facfe;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-        .hib-draggable-item.dragging {
-            opacity: 0.5;
-            transform: rotate(5deg);
-        }
-        .hib-drop-zone {
-            transition: all 0.3s;
-        }
-        .hib-drop-zone.drag-over {
-            border-color: #28a745 !important;
-            background-color: #d4edda !important;
-        }
-        .hib-dropped-items {
-            display: grid;
-            gap: 10px;
-            margin-top: 10px;
-        }
-        .hib-dropped-item {
-            background: white;
-            padding: 10px;
-            border-radius: 6px;
-            border-right: 3px solid #28a745;
-            font-weight: bold;
-        }
-        .hib-dropped-item.correct {
-            border-right-color: #28a745;
-            background: #d4edda;
-        }
-        .hib-dropped-item.incorrect {
-            border-right-color: #dc3545;
-            background: #f8d7da;
-        }
-        .hib-image-container {
-            text-align: center;
-            margin: 20px 0;
-        }
-        .hib-image-container img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-        .hib-footer {
-            text-align: center;
-            padding: 20px;
-            background: #f8f9fa;
-            border-radius: 10px;
-            margin: 20px 0;
-            font-weight: bold;
-            color: #495057;
-        }
-        .hib-footer a {
-            color: #007bff;
-            text-decoration: none;
-        }
-        .hib-footer a:hover {
-            text-decoration: underline;
+        .progress-bar {
+            transition: width 0.5s ease;
         }
     </style>
 </head>
-<body class="hib-body">
-    <div class="hib-container">
-        <div class="hib-header">
-            <h1>📚 درس همزة ابن وحذفها</h1>
-            <p>تعلم قواعد حذف وإثبات همزة "ابن" بطريقة تفاعلية</p>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-full">
+    <header class="bg-white shadow-lg">
+        <div class="container mx-auto px-6 py-4">
+            <h1 class="text-3xl font-bold text-center text-gray-800">📚 درس إثبات وحذف همزة "ابن"</h1>
         </div>
+    </header>
 
-        <div class="hib-image-container">
-            <img src="https://blogger.googleusercontent.com/img/a/AVvXsEhT6Nzi6UMNnQCjrULUwBUTPYo0WaiM4u8Gm_GnttZNPz_qzKKO9E012PFKkO2IUHEPmyAGz0V767O2OjyuBkjb8x7VsiS9pyU8ugMKUNunqP1YrST0Fus-MicyJBAMCSVqbbTm6Xhu5QRCi9QwROCpHJ-YkjQQTTtRjaSFlC4fXlBvR314CoKTaAx1XFQy=s1280-rw" alt="درس همزة ابن وحذفها">
-        </div>
+    <main class="container mx-auto px-6 py-8">
+        <!-- القواعد الأساسية -->
+        <section class="mb-12">
+            <div class="rule-box text-white rounded-xl p-8 shadow-xl">
+                <h2 class="text-2xl font-bold mb-6 text-center">📋 القواعد الأساسية</h2>
+                
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="bg-white bg-opacity-20 rounded-lg p-6">
+                        <h3 class="text-xl font-bold mb-4 text-yellow-200">❌ تُحذف همزة "بن - بنت" في:</h3>
+                        <ul class="arabic-text space-y-3">
+                            <li class="flex items-start">
+                                <span class="text-yellow-300 ml-2">•</span>
+                                إذا وقعت بين اسمين علمين، ولم تقع في بداية السطر
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-yellow-300 ml-2">•</span>
+                                إذا دخل عليها نداء
+                            </li>
+                        </ul>
+                        <div class="mt-4 p-3 bg-green-500 bg-opacity-30 rounded">
+                            <p class="font-bold">أمثلة:</p>
+                            <p>محمد بن أحمد - فاطمة بنت علي - يا بن الكريم</p>
+                        </div>
+                    </div>
 
-        <div class="hib-content">
-            <!-- القواعد النظرية -->
-            <div class="hib-section">
-                <h2>📖 متى تُحذف همزة ابن؟</h2>
-
-                <div class="hib-rule-box">
-                    <h3>🔹 بين علمين</h3>
-                    <div class="hib-example">
-                        <strong>مثال:</strong> عثمان <span class="hib-highlight">بن</span> عفان، عبد الله <span class="hib-highlight">بن</span> مسعود
-                    </div>
-                </div>
-                <div class="hib-rule-box">
-                    <h3>🔹 بين كنيتين</h3>
-                    <div class="hib-example">
-                        <strong>مثال:</strong> أبو الفضل <span class="hib-highlight">بن</span> أبي علي
-                    </div>
-                </div>
-                <div class="hib-rule-box">
-                    <h3>🔹 بين علمين ثانيهما لقب</h3>
-                    <div class="hib-example">
-                        <strong>مثال:</strong> فازت سعاد <span class="hib-highlight">بنت</span> البحار
-                    </div>
-                </div>
-                <div class="hib-rule-box">
-                    <h3>🔹 بين علمين ثانيهما كنية</h3>
-                    <div class="hib-example">
-                        <strong>مثال:</strong> أسماء <span class="hib-highlight">بنت</span> أبي بكر
-                    </div>
-                </div>
-                <div class="hib-rule-box">
-                    <h3>🔹 بعد أداة النداء (يا)</h3>
-                    <div class="hib-example">
-                        <strong>مثال:</strong> يا <span class="hib-highlight">بن</span> عبد الله
+                    <div class="bg-white bg-opacity-20 rounded-lg p-6">
+                        <h3 class="text-xl font-bold mb-4 text-green-200">✅ تُثبت همزة "ابن - ابنة" في:</h3>
+                        <ul class="arabic-text space-y-3">
+                            <li class="flex items-start">
+                                <span class="text-green-300 ml-2">•</span>
+                                إذا لم تقع بين اسمين علمين
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-green-300 ml-2">•</span>
+                                إذا وقعت في أول السطر
+                            </li>
+                        </ul>
+                        <div class="mt-4 p-3 bg-blue-500 bg-opacity-30 rounded">
+                            <p class="font-bold">أمثلة:</p>
+                            <p>حسام ابن قيس حاد - ابنة عمي - ابن خلدون (أول السطر)</p>
+                            <p class="text-sm mt-1 text-blue-100">* الحسام: السيف</p>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="hib-section">
-                <h2>📝 متى تُثبت همزة ابن؟</h2>
+        </section>
 
-                <div class="hib-rule-box">
-                    <h3>🔸 إذا لم تقع بين علمين</h3>
-                    <div class="hib-example">
-                        <strong>مثال:</strong> جاء <span class="hib-highlight">ابن</span> الجار
-                    </div>
-                </div>
-                <div class="hib-rule-box">
-                    <h3>🔸 إذا وقعت في أول السطر</h3>
-                    <div class="hib-example">
-                        <strong>مثال:</strong> <span class="hib-highlight">ابن</span> المقفع هو من نقل لنا كتاب "كليلة ودمنة"
-                    </div>
-                </div>
+        <!-- شريط التقدم -->
+        <div class="mb-8">
+            <div class="flex justify-between items-center mb-2">
+                <span class="text-sm font-medium text-gray-700">التقدم في التدريبات</span>
+                <span class="text-sm font-medium text-gray-700" id="progress-text">0 / 0</span>
             </div>
-            <!-- التدريبات -->
-            <div class="hib-tab-container">
-                <button class="hib-tab active" onclick="hibShowTab('mcq')">اختر الإجابة الصحيحة</button>
-                <button class="hib-tab" onclick="hibShowTab('complete')">أكمل الفراغ</button>
-                <button class="hib-tab" onclick="hibShowTab('truefalse')">صح وخطأ</button>
-                <button class="hib-tab" onclick="hibShowTab('correct')">صحح الخطأ</button>
-                <button class="hib-tab" onclick="hibShowTab('classify')">صنف الأمثلة</button>
-            </div>
-            <!-- اختيار من متعدد -->
-            <div id="hib-mcq" class="hib-tab-content active">
-                <div class="hib-exercise-container">
-                    <h2>🎯 اختر الإجابة الصحيحة</h2>
-                    <div class="hib-score-board">
-                        <h3>النتيجة: <span id="hib-mcq-score">0</span> من <span id="hib-mcq-total">10</span></h3>
-                    </div>
-                    <div class="hib-question" id="hib-mcq-1">
-                        <h4>1. أي من الجمل التالية تُحذف فيها همزة ابن؟</h4>
-                        <div class="hib-options">
-                            <div class="hib-option" onclick="hibSelectOption(this, false)">أ) جاء ابن الجار</div>
-                            <div class="hib-option" onclick="hibSelectOption(this, true)">ب) محمد بن راشد</div>
-                            <div class="hib-option" onclick="hibSelectOption(this, false)">ج) ابن سينا طبيب مشهور</div>
-                            <div class="hib-option" onclick="hibSelectOption(this, false)">د) رأيت ابن عمي</div>
-                        </div>
-                        <button class="hib-btn" onclick="hibCheckMCQ(1)" style="display: none;">تحقق من الإجابة</button>
-                        <div class="hib-result" id="hib-result-1" style="display: none;"></div>
-                    </div>
-                    <div class="hib-question" id="hib-mcq-2">
-                        <h4>2. متى تُثبت همزة ابن؟</h4>
-                        <div class="hib-options">
-                            <div class="hib-option" onclick="hibSelectOption(this, false)">أ) بين علمين فقط</div>
-                            <div class="hib-option" onclick="hibSelectOption(this, true)">ب) في أول السطر</div>
-                            <div class="hib-option" onclick="hibSelectOption(this, false)">ج) بعد أداة النداء</div>
-                            <div class="hib-option" onclick="hibSelectOption(this, false)">د) بين كنيتين</div>
-                        </div>
-                        <button class="hib-btn" onclick="hibCheckMCQ(2)" style="display: none;">تحقق من الإجابة</button>
-                        <div class="hib-result" id="hib-result-2" style="display: none;"></div>
-                    </div>
-                    <div class="hib-question" id="hib-mcq-3">
-                        <h4>3. في أي جملة تُحذف همزة ابن؟</h4>
-                        <div class="hib-options">
-                            <div class="hib-option" onclick="hibSelectOption(this, false)">أ) ابن خلدون مؤرخ عظيم</div>
-                            <div class="hib-option" onclick="hibSelectOption(this, true)">ب) يا بن آدم</div>
-                            <div class="hib-option" onclick="hibSelectOption(this, false)">ج) قرأت كتاب ابن تيمية</div>
-                            <div class="hib-option" onclick="hibSelectOption(this, false)">د) ابن الطبيب ماهر</div>
-                        </div>
-                        <button class="hib-btn" onclick="hibCheckMCQ(3)" style="display: none;">تحقق من الإجابة</button>
-                        <div class="hib-result" id="hib-result-3" style="display: none;"></div>
-                    </div>
-                    <div class="hib-question" id="hib-mcq-4">
-                        <h4>4. أي من الأمثلة التالية صحيح؟</h4>
-                        <div class="hib-options">
-                            <div class="hib-option" onclick="hibSelectOption(this, true)">أ) عمر بن الخطاب</div>
-                            <div class="hib-option" onclick="hibSelectOption(this, false)">ب) عمر ابن الخطاب</div>
-                            <div class="hib-option" onclick="hibSelectOption(this, false)">ج) جاء بن أحمد</div>
-                            <div class="hib-option" onclick="hibSelectOption(this, false)">د) رأيت بن علي</div>
-                        </div>
-                        <button class="hib-btn" onclick="hibCheckMCQ(4)" style="display: none;">تحقق من الإجابة</button>
-                        <div class="hib-result" id="hib-result-4" style="display: none;"></div>
-                    </div>
-                    <div class="hib-question" id="hib-mcq-5">
-                        <h4>5. في جملة "أبو بكر بن أبي قحافة"، لماذا حُذفت همزة ابن؟</h4>
-                        <div class="hib-options">
-                            <div class="hib-option" onclick="hibSelectOption(this, false)">أ) لأنها بعد أداة النداء</div>
-                            <div class="hib-option" onclick="hibSelectOption(this, true)">ب) لأنها بين علمين ثانيهما كنية</div>
-                            <div class="hib-option" onclick="hibSelectOption(this, false)">ج) لأنها في أول السطر</div>
-                            <div class="hib-option" onclick="hibSelectOption(this, false)">د) لأنها بين كنيتين</div>
-                        </div>
-                        <button class="hib-btn" onclick="hibCheckMCQ(5)" style="display: none;">تحقق من الإجابة</button>
-                        <div class="hib-result" id="hib-result-5" style="display: none;"></div>
-                    </div>
-                    <div class="hib-question" id="hib-mcq-6">
-                        <h4>6. أي من الجمل التالية خاطئة؟</h4>
-                        <div class="hib-options">
-                            <div class="hib-option" onclick="hibSelectOption(this, false)">أ) هارون بن الرشيد</div>
-                            <div class="hib-option" onclick="hibSelectOption(this, true)">ب) بن تيمية عالم جليل</div>
-                            <div class="hib-option" onclick="hibSelectOption(this, false)">ج) يا بن كريم</div>
-                            <div class="hib-option" onclick="hibSelectOption(this, false)">د) فاطمة بنت محمد</div>
-                        </div>
-                        <button class="hib-btn" onclick="hibCheckMCQ(6)" style="display: none;">تحقق من الإجابة</button>
-                        <div class="hib-result" id="hib-result-6" style="display: none;"></div>
-                    </div>
-                    <div class="hib-question" id="hib-mcq-7">
-                        <h4>7. في أي حالة تُكتب "ابن" بالهمزة؟</h4>
-                        <div class="hib-options">
-                            <div class="hib-option" onclick="hibSelectOption(this, false)">أ) بين علمين</div>
-                            <div class="hib-option" onclick="hibSelectOption(this, false)">ب) بعد أداة النداء</div>
-                            <div class="hib-option" onclick="hibSelectOption(this, true)">ج) عندما لا تقع بين علمين</div>
-                            <div class="hib-option" onclick="hibSelectOption(this, false)">د) بين كنيتين</div>
-                        </div>
-                        <button class="hib-btn" onclick="hibCheckMCQ(7)" style="display: none;">تحقق من الإجابة</button>
-                        <div class="hib-result" id="hib-result-7" style="display: none;"></div>
-                    </div>
-                    <div class="hib-question" id="hib-mcq-8">
-                        <h4>8. "أبو حفص بن أبي عمر" - لماذا حُذفت الهمزة؟</h4>
-                        <div class="hib-options">
-                            <div class="hib-option" onclick="hibSelectOption(this, true)">أ) لأنها بين كنيتين</div>
-                            <div class="hib-option" onclick="hibSelectOption(this, false)">ب) لأنها بين علمين</div>
-                            <div class="hib-option" onclick="hibSelectOption(this, false)">ج) لأنها بعد النداء</div>
-                            <div class="hib-option" onclick="hibSelectOption(this, false)">د) لأنها في أول السطر</div>
-                        </div>
-                        <button class="hib-btn" onclick="hibCheckMCQ(8)" style="display: none;">تحقق من الإجابة</button>
-                        <div class="hib-result" id="hib-result-8" style="display: none;"></div>
-                    </div>
-                    <div class="hib-question" id="hib-mcq-9">
-                        <h4>9. أي من هذه الأمثلة يحتاج تصحيح؟</h4>
-                        <div class="hib-options">
-                            <div class="hib-option" onclick="hibSelectOption(this, false)">أ) خالد بن الوليد</div>
-                            <div class="hib-option" onclick="hibSelectOption(this, true)">ب) جاء بن أحمد</div>
-                            <div class="hib-option" onclick="hibSelectOption(this, false)">ج) يا بن آدم</div>
-                            <div class="hib-option" onclick="hibSelectOption(this, false)">د) زينب بنت علي</div>
-                        </div>
-                        <button class="hib-btn" onclick="hibCheckMCQ(9)" style="display: none;">تحقق من الإجابة</button>
-                        <div class="hib-result" id="hib-result-9" style="display: none;"></div>
-                    </div>
-                    <div class="hib-question" id="hib-mcq-10">
-                        <h4>10. متى تُحذف همزة "بنت"؟</h4>
-                        <div class="hib-options">
-                            <div class="hib-option" onclick="hibSelectOption(this, false)">أ) دائماً</div>
-                            <div class="hib-option" onclick="hibSelectOption(this, false)">ب) أبداً</div>
-                            <div class="hib-option" onclick="hibSelectOption(this, true)">ج) في نفس مواضع حذف همزة "ابن"</div>
-                            <div class="hib-option" onclick="hibSelectOption(this, false)">د) فقط بعد أداة النداء</div>
-                        </div>
-                        <button class="hib-btn" onclick="hibCheckMCQ(10)" style="display: none;">تحقق من الإجابة</button>
-                        <div class="hib-result" id="hib-result-10" style="display: none;"></div>
-                    </div>
-                </div>
-            </div>
-            <!-- إكمال الفراغ -->
-            <div id="hib-complete" class="hib-tab-content">
-                <div class="hib-exercise-container">
-                    <h2>✏️ أكمل الفراغات</h2>
-                    <div class="hib-score-board">
-                        <h3>النتيجة: <span id="hib-complete-score">0</span> من <span id="hib-complete-total">8</span></h3>
-                    </div>
-                    <div class="hib-question">
-                        <h4>1. علي _____ أبي طالب (ابن/بن)</h4>
-                        <input type="text" class="hib-input-field" id="hib-complete-1" placeholder="اكتب إجابتك هنا">
-                        <button class="hib-btn" onclick="hibCheckComplete(1, 'بن')">تحقق</button>
-                        <div class="hib-result" id="hib-complete-result-1" style="display: none;"></div>
-                    </div>
-                    <div class="hib-question">
-                        <h4>2. _____ سينا طبيب مشهور (ابن/بن)</h4>
-                        <input type="text" class="hib-input-field" id="hib-complete-2" placeholder="اكتب إجابتك هنا">
-                        <button class="hib-btn" onclick="hibCheckComplete(2, 'ابن')">تحقق</button>
-                        <div class="hib-result" id="hib-complete-result-2" style="display: none;"></div>
-                    </div>
-                    <div class="hib-question">
-                        <h4>3. يا _____ آدم (ابن/بن)</h4>
-                        <input type="text" class="hib-input-field" id="hib-complete-3" placeholder="اكتب إجابتك هنا">
-                        <button class="hib-btn" onclick="hibCheckComplete(3, 'بن')">تحقق</button>
-                        <div class="hib-result" id="hib-complete-result-3" style="display: none;"></div>
-                    </div>
-                    <div class="hib-question">
-                        <h4>4. جاء _____ الطبيب (ابن/بن)</h4>
-                        <input type="text" class="hib-input-field" id="hib-complete-4" placeholder="اكتب إجابتك هنا">
-                        <button class="hib-btn" onclick="hibCheckComplete(4, 'ابن')">تحقق</button>
-                        <div class="hib-result" id="hib-complete-result-4" style="display: none;"></div>
-                    </div>
-                    <div class="hib-question">
-                        <h4>5. أبو حنيفة _____ أبي ثابت (ابن/بن)</h4>
-                        <input type="text" class="hib-input-field" id="hib-complete-5" placeholder="اكتب إجابتك هنا">
-                        <button class="hib-btn" onclick="hibCheckComplete(5, 'بن')">تحقق</button>
-                        <div class="hib-result" id="hib-complete-result-5" style="display: none;"></div>
-                    </div>
-                    <div class="hib-question">
-                        <h4>6. _____ رشد فيلسوف أندلسي (ابن/بن)</h4>
-                        <input type="text" class="hib-input-field" id="hib-complete-6" placeholder="اكتب إجابتك هنا">
-                        <button class="hib-btn" onclick="hibCheckComplete(6, 'ابن')">تحقق</button>
-                        <div class="hib-result" id="hib-complete-result-6" style="display: none;"></div>
-                    </div>
-                    <div class="hib-question">
-                        <h4>7. عائشة _____ أبي بكر (ابن/بنت)</h4>
-                        <input type="text" class="hib-input-field" id="hib-complete-7" placeholder="اكتب إجابتك هنا">
-                        <button class="hib-btn" onclick="hibCheckComplete(7, 'بنت')">تحقق</button>
-                        <div class="hib-result" id="hib-complete-result-7" style="display: none;"></div>
-                    </div>
-                    <div class="hib-question">
-                        <h4>8. سلمان _____ عبد العزيز (ابن/بن)</h4>
-                        <input type="text" class="hib-input-field" id="hib-complete-8" placeholder="اكتب إجابتك هنا">
-                        <button class="hib-btn" onclick="hibCheckComplete(8, 'بن')">تحقق</button>
-                        <div class="hib-result" id="hib-complete-result-8" style="display: none;"></div>
-                    </div>
-                </div>
-            </div>
-            <!-- صح وخطأ -->
-            <div id="hib-truefalse" class="hib-tab-content">
-                <div class="hib-exercise-container">
-                    <h2>✅ صح أم خطأ؟</h2>
-                    <div class="hib-score-board">
-                        <h3>النتيجة: <span id="hib-tf-score">0</span> من <span id="hib-tf-total">8</span></h3>
-                    </div>
-                    <div class="hib-question">
-                        <h4>1. تُحذف همزة ابن إذا وقعت بين علمين</h4>
-                        <div class="hib-options">
-                            <div class="hib-option" onclick="hibSelectTF(this, true)">صح ✅</div>
-                            <div class="hib-option" onclick="hibSelectTF(this, false)">خطأ ❌</div>
-                        </div>
-                        <button class="hib-btn" onclick="hibCheckTF(1)" style="display: none;">تحقق من الإجابة</button>
-                        <div class="hib-result" id="hib-tf-result-1" style="display: none;"></div>
-                    </div>
-                    <div class="hib-question">
-                        <h4>2. في جملة "ابن خلدون مؤرخ" تُحذف همزة ابن</h4>
-                        <div class="hib-options">
-                            <div class="hib-option" onclick="hibSelectTF(this, false)">صح ✅</div>
-                            <div class="hib-option" onclick="hibSelectTF(this, true)">خطأ ❌</div>
-                        </div>
-                        <button class="hib-btn" onclick="hibCheckTF(2)" style="display: none;">تحقق من الإجابة</button>
-                        <div class="hib-result" id="hib-tf-result-2" style="display: none;"></div>
-                    </div>
-                    <div class="hib-question">
-                        <h4>3. تُحذف همزة ابن بعد أداة النداء "يا"</h4>
-                        <div class="hib-options">
-                            <div class="hib-option" onclick="hibSelectTF(this, true)">صح ✅</div>
-                            <div class="hib-option" onclick="hibSelectTF(this, false)">خطأ ❌</div>
-                        </div>
-                        <button class="hib-btn" onclick="hibCheckTF(3)" style="display: none;">تحقق من الإجابة</button>
-                        <div class="hib-result" id="hib-tf-result-3" style="display: none;"></div>
-                    </div>
-                    <div class="hib-question">
-                        <h4>4. في "عائشة بنت أبي بكر" تُحذف همزة بنت لأنها بين علمين ثانيهما كنية</h4>
-                        <div class="hib-options">
-                            <div class="hib-option" onclick="hibSelectTF(this, true)">صح ✅</div>
-                            <div class="hib-option" onclick="hibSelectTF(this, false)">خطأ ❌</div>
-                        </div>
-                        <button class="hib-btn" onclick="hibCheckTF(4)" style="display: none;">تحقق من الإجابة</button>
-                        <div class="hib-result" id="hib-tf-result-4" style="display: none;"></div>
-                    </div>
-                    <div class="hib-question">
-                        <h4>5. تُثبت همزة ابن دائماً في أول السطر</h4>
-                        <div class="hib-options">
-                            <div class="hib-option" onclick="hibSelectTF(this, true)">صح ✅</div>
-                            <div class="hib-option" onclick="hibSelectTF(this, false)">خطأ ❌</div>
-                        </div>
-                        <button class="hib-btn" onclick="hibCheckTF(5)" style="display: none;">تحقق من الإجابة</button>
-                        <div class="hib-result" id="hib-tf-result-5" style="display: none;"></div>
-                    </div>
-                    <div class="hib-question">
-                        <h4>6. في "أبو العباس بن أبي طالب" تُحذف همزة ابن لأنها بين كنيتين</h4>
-                        <div class="hib-options">
-                            <div class="hib-option" onclick="hibSelectTF(this, true)">صح ✅</div>
-                            <div class="hib-option" onclick="hibSelectTF(this, false)">خطأ ❌</div>
-                        </div>
-                        <button class="hib-btn" onclick="hibCheckTF(6)" style="display: none;">تحقق من الإجابة</button>
-                        <div class="hib-result" id="hib-tf-result-6" style="display: none;"></div>
-                    </div>
-                    <div class="hib-question">
-                        <h4>7. همزة "بنت" لها نفس قواعد همزة "ابن"</h4>
-                        <div class="hib-options">
-                            <div class="hib-option" onclick="hibSelectTF(this, true)">صح ✅</div>
-                            <div class="hib-option" onclick="hibSelectTF(this, false)">خطأ ❌</div>
-                        </div>
-                        <button class="hib-btn" onclick="hibCheckTF(7)" style="display: none;">تحقق من الإجابة</button>
-                        <div class="hib-result" id="hib-tf-result-7" style="display: none;"></div>
-                    </div>
-                    <div class="hib-question">
-                        <h4>8. يمكن حذف همزة ابن في جملة "رأيت ابن الطبيب"</h4>
-                        <div class="hib-options">
-                            <div class="hib-option" onclick="hibSelectTF(this, false)">صح ✅</div>
-                            <div class="hib-option" onclick="hibSelectTF(this, true)">خطأ ❌</div>
-                        </div>
-                        <button class="hib-btn" onclick="hibCheckTF(8)" style="display: none;">تحقق من الإجابة</button>
-                        <div class="hib-result" id="hib-tf-result-8" style="display: none;"></div>
-                    </div>
-                </div>
-            </div>
-            <!-- تصحيح الأخطاء -->
-            <div id="hib-correct" class="hib-tab-content">
-                <div class="hib-exercise-container">
-                    <h2>🔧 صحح الأخطاء</h2>
-                    <div class="hib-score-board">
-                        <h3>النتيجة: <span id="hib-correct-score">0</span> من <span id="hib-correct-total">6</span></h3>
-                    </div>
-                    <div class="hib-question">
-                        <h4>1. صحح الخطأ في الجملة التالية:</h4>
-                        <p style="background: #ffe6e6; padding: 15px; border-radius: 8px; border-right: 4px solid #e74c3c;">
-                            "بن تيمية عالم جليل"
-                        </p>
-                        <input type="text" class="hib-input-field" id="hib-correct-1" placeholder="اكتب الجملة صحيحة">
-                        <button class="hib-btn" onclick="hibCheckCorrection(1, 'ابن تيمية عالم جليل')">تحقق</button>
-                        <div class="hib-result" id="hib-correct-result-1" style="display: none;"></div>
-                    </div>
-                    <div class="hib-question">
-                        <h4>2. صحح الخطأ في الجملة التالية:</h4>
-                        <p style="background: #ffe6e6; padding: 15px; border-radius: 8px; border-right: 4px solid #e74c3c;">
-                            "جاء بن أحمد إلى المدرسة"
-                        </p>
-                        <input type="text" class="hib-input-field" id="hib-correct-2" placeholder="اكتب الجملة صحيحة">
-                        <button class="hib-btn" onclick="hibCheckCorrection(2, 'جاء ابن أحمد إلى المدرسة')">تحقق</button>
-                        <div class="hib-result" id="hib-correct-result-2" style="display: none;"></div>
-                    </div>
-                    <div class="hib-question">
-                        <h4>3. صحح الخطأ في الجملة التالية:</h4>
-                        <p style="background: #ffe6e6; padding: 15px; border-radius: 8px; border-right: 4px solid #e74c3c;">
-                            "عمر ابن الخطاب خليفة راشد"
-                        </p>
-                        <input type="text" class="hib-input-field" id="hib-correct-3" placeholder="اكتب الجملة صحيحة">
-                        <button class="hib-btn" onclick="hibCheckCorrection(3, 'عمر بن الخطاب خليفة راشد')">تحقق</button>
-                        <div class="hib-result" id="hib-correct-result-3" style="display: none;"></div>
-                    </div>
-                    <div class="hib-question">
-                        <h4>4. صحح الخطأ في الجملة التالية:</h4>
-                        <p style="background: #ffe6e6; padding: 15px; border-radius: 8px; border-right: 4px solid #e74c3c;">
-                            "يا ابن كريم تعال هنا"
-                        </p>
-                        <input type="text" class="hib-input-field" id="hib-correct-4" placeholder="اكتب الجملة صحيحة">
-                        <button class="hib-btn" onclick="hibCheckCorrection(4, 'يا بن كريم تعال هنا')">تحقق</button>
-                        <div class="hib-result" id="hib-correct-result-4" style="display: none;"></div>
-                    </div>
-                    <div class="hib-question">
-                        <h4>5. صحح الخطأ في الجملة التالية:</h4>
-                        <p style="background: #ffe6e6; padding: 15px; border-radius: 8px; border-right: 4px solid #e74c3c;">
-                            "فاطمة ابنت محمد"
-                        </p>
-                        <input type="text" class="hib-input-field" id="hib-correct-5" placeholder="اكتب الجملة صحيحة">
-                        <button class="hib-btn" onclick="hibCheckCorrection(5, 'فاطمة بنت محمد')">تحقق</button>
-                        <div class="hib-result" id="hib-correct-result-5" style="display: none;"></div>
-                    </div>
-                    <div class="hib-question">
-                        <h4>6. صحح الخطأ في الجملة التالية:</h4>
-                        <p style="background: #ffe6e6; padding: 15px; border-radius: 8px; border-right: 4px solid #e74c3c;">
-                            "أبو بكر ابن أبي قحافة"
-                        </p>
-                        <input type="text" class="hib-input-field" id="hib-correct-6" placeholder="اكتب الجملة صحيحة">
-                        <button class="hib-btn" onclick="hibCheckCorrection(6, 'أبو بكر بن أبي قحافة')">تحقق</button>
-                        <div class="hib-result" id="hib-correct-result-6" style="display: none;"></div>
-                    </div>
-                </div>
-            </div>
-            <!-- تصنيف الأمثلة -->
-            <div id="hib-classify" class="hib-tab-content">
-                <div class="hib-exercise-container">
-                    <h2>📊 صنف الأمثلة</h2>
-                    <div class="hib-score-board">
-                        <h3>النتيجة: <span id="hib-classify-score">0</span> من <span id="hib-classify-total">8</span></h3>
-                    </div>
-
-                    <p><strong>اسحب كل مثال إلى المجموعة الصحيحة:</strong></p>
-
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0;">
-                        <div class="hib-drop-zone" id="hib-with-hamza" style="background: #fff3cd; border: 2px dashed #ffc107; padding: 20px; border-radius: 10px; min-height: 200px;">
-                            <h4 style="text-align: center; color: #856404;">تُكتب بالهمزة (ابن)</h4>
-                            <div class="hib-dropped-items"></div>
-                        </div>
-
-                        <div class="hib-drop-zone" id="hib-without-hamza" style="background: #d1ecf1; border: 2px dashed #17a2b8; padding: 20px; border-radius: 10px; min-height: 200px;">
-                            <h4 style="text-align: center; color: #0c5460;">تُكتب بدون همزة (بن)</h4>
-                            <div class="hib-dropped-items"></div>
-                        </div>
-                    </div>
-
-                    <div class="hib-examples-container" style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin: 20px 0;">
-                        <h4>الأمثلة:</h4>
-                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;">
-                            <div class="hib-draggable-item" draggable="true" data-correct="hib-with-hamza">ابن سينا طبيب</div>
-                            <div class="hib-draggable-item" draggable="true" data-correct="hib-without-hamza">محمد بن راشد</div>
-                            <div class="hib-draggable-item" draggable="true" data-correct="hib-with-hamza">جاء ابن الجار</div>
-                            <div class="hib-draggable-item" draggable="true" data-correct="hib-without-hamza">يا بن آدم</div>
-                            <div class="hib-draggable-item" draggable="true" data-correct="hib-without-hamza">علي بن أبي طالب</div>
-                            <div class="hib-draggable-item" draggable="true" data-correct="hib-with-hamza">ابن خلدون مؤرخ</div>
-                            <div class="hib-draggable-item" draggable="true" data-correct="hib-without-hamza">أبو بكر بن أبي قحافة</div>
-                            <div class="hib-draggable-item" draggable="true" data-correct="hib-with-hamza">رأيت ابن عمي</div>
-                            <div class="hib-draggable-item" draggable="true" data-correct="hib-without-hamza">خديجة بنت خويلد</div>
-                        </div>
-                    </div>
-
-                    <button class="hib-btn" onclick="hibCheckClassification()" style="width: 100%; margin-top: 20px;">تحقق من التصنيف</button>
-                    <div class="hib-result" id="hib-classify-result" style="display: none;"></div>
-                </div>
+            <div class="w-full bg-gray-200 rounded-full h-3">
+                <div class="progress-bar bg-gradient-to-r from-green-400 to-blue-500 h-3 rounded-full" style="width: 0%" id="progress-bar"></div>
             </div>
         </div>
 
-        <div class="hib-footer">
-            <p>من إعداد الأستاذ خليل البلوشي</p>
-            <p>رابط قناة الواتساب: <a href="https://whatsapp.com/channel/0029VamotBKCxoAy3fzUcv3T" target="_blank">انضم إلى القناة</a></p>
+        <!-- التدريبات -->
+        <section id="exercises-section">
+            <h2 class="text-2xl font-bold text-center mb-8 text-gray-800">🎯 التدريبات التطبيقية</h2>
+            <div id="exercises-container"></div>
+        </section>
+
+        <!-- النتائج النهائية -->
+        <div id="final-results" class="hidden mt-12 p-8 bg-white rounded-xl shadow-xl text-center">
+            <h3 class="text-2xl font-bold mb-4">🎉 تهانينا! أكملت جميع التدريبات</h3>
+            <div id="final-score" class="text-xl mb-6"></div>
+            <button onclick="restartExercises()" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-bold transition-colors">
+                إعادة التدريبات
+            </button>
         </div>
-    </div>
+    </main>
 
     <script>
-        // متغيرات عامة
-        let hibMcqScore = 0;
-        let hibCompleteScore = 0;
-        let hibTfScore = 0;
-        let hibCorrectScore = 0;
-        let hibClassifyScore = 0;
-        let hibSelectedAnswers = {};
-        let hibDraggedElement = null;
-
-        // عرض التبويب المحدد
-        function hibShowTab(tabName) {
-            document.querySelectorAll('.hib-tab-content').forEach(content => {
-                content.classList.remove('active');
-            });
-            document.querySelectorAll('.hib-tab').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            document.getElementById('hib-' + tabName).classList.add('active');
-            event.target.classList.add('active');
-        }
-
-        // اختيار خيار في أسئلة الاختيار من متعدد
-        function hibSelectOption(element, isCorrect) {
-            const questionDiv = element.closest('.hib-question');
-            const options = questionDiv.querySelectorAll('.hib-option');
-            options.forEach(opt => opt.classList.remove('selected'));
-            element.classList.add('selected');
-            const questionId = questionDiv.id;
-            hibSelectedAnswers[questionId] = isCorrect;
-            questionDiv.querySelector('.hib-btn').style.display = 'inline-block';
-        }
-
-        // التحقق من إجابة أسئلة الاختيار من متعدد
-        function hibCheckMCQ(questionNum) {
-            const questionId = `hib-mcq-${questionNum}`;
-            const isCorrect = hibSelectedAnswers[questionId];
-            const resultDiv = document.getElementById(`hib-result-${questionNum}`);
-            const questionDiv = document.getElementById(questionId);
-            const options = questionDiv.querySelectorAll('.hib-option');
-
-            options.forEach(option => {
-                if (option.classList.contains('selected')) {
-                    if (isCorrect) {
-                        option.classList.add('correct');
-                        resultDiv.className = 'hib-result hib-correct-result';
-                        resultDiv.textContent = '🎉 إجابة صحيحة! أحسنت';
-                        hibMcqScore++;
-                    } else {
-                        option.classList.add('incorrect');
-                        resultDiv.className = 'hib-result hib-incorrect-result';
-                        resultDiv.textContent = '❌ إجابة خاطئة، حاول مرة أخرى';
-                    }
-                }
-            });
-            resultDiv.style.display = 'block';
-            questionDiv.querySelector('.hib-btn').style.display = 'none';
-            document.getElementById('hib-mcq-score').textContent = hibMcqScore;
-        }
-
-        // التحقق من إجابة أسئلة إكمال الفراغ
-        function hibCheckComplete(questionNum, correctAnswer) {
-            const inputField = document.getElementById(`hib-complete-${questionNum}`);
-            const userAnswer = inputField.value.trim();
-            const resultDiv = document.getElementById(`hib-complete-result-${questionNum}`);
-
-            if (userAnswer === correctAnswer) {
-                resultDiv.className = 'hib-result hib-correct-result';
-                resultDiv.textContent = '🎉 إجابة صحيحة!';
-                inputField.style.borderColor = '#27ae60';
-                hibCompleteScore++;
-            } else {
-                resultDiv.className = 'hib-result hib-incorrect-result';
-                resultDiv.textContent = `❌ إجابة خاطئة. الإجابة الصحيحة: ${correctAnswer}`;
-                inputField.style.borderColor = '#e74c3c';
+        const exercises = [
+            {
+                type: 'choice',
+                question: 'اختر الكتابة الصحيحة:',
+                text: 'عمر ... الخطاب رضي الله عنه',
+                options: ['بن', 'ابن'],
+                correct: 0,
+                explanation: 'تُحذف الهمزة لأنها وقعت بين اسمين علمين (عمر - الخطاب)'
+            },
+            {
+                type: 'choice',
+                question: 'اختر الكتابة الصحيحة:',
+                text: 'يا ... الكريم، تعال هنا',
+                options: ['بن', 'ابن'],
+                correct: 0,
+                explanation: 'تُحذف الهمزة لأنها دخل عليها نداء (يا)'
+            },
+            {
+                type: 'choice',
+                question: 'اختر الكتابة الصحيحة:',
+                text: '... سينا عالم مشهور',
+                options: ['بن', 'ابن'],
+                correct: 1,
+                explanation: 'تُثبت الهمزة لأنها وقعت في أول السطر'
+            },
+            {
+                type: 'choice',
+                question: 'اختر الكتابة الصحيحة:',
+                text: 'حسام ... قيس حاد',
+                options: ['بن', 'ابن'],
+                correct: 1,
+                explanation: 'تُثبت الهمزة لأنها لم تقع بين اسمين علمين (حسام اسم للسيف وليس علم شخص)'
+            },
+            {
+                type: 'choice',
+                question: 'اختر الكتابة الصحيحة:',
+                text: 'أحمد ... محمد طالب مجتهد',
+                options: ['بن', 'ابن'],
+                correct: 0,
+                explanation: 'تُحذف الهمزة لأنها وقعت بين اسمين علمين (أحمد - محمد)'
+            },
+            {
+                type: 'choice',
+                question: 'اختر الكتابة الصحيحة:',
+                text: '... جارنا مطيع لوالديه',
+                options: ['بن', 'ابن'],
+                correct: 1,
+                explanation: 'تُثبت الهمزة لأنها لم تقع بين اسمين علمين'
+            },
+            {
+                type: 'choice',
+                question: 'اختر الكتابة الصحيحة:',
+                text: 'يا ... عمي، كيف حالك؟',
+                options: ['بن', 'ابن'],
+                correct: 0,
+                explanation: 'تُحذف الهمزة لأنها دخل عليها نداء (يا)'
+            },
+            {
+                type: 'choice',
+                question: 'اختر الكتابة الصحيحة:',
+                text: 'خالد ... سعد وصل متأخراً',
+                options: ['بن', 'ابن'],
+                correct: 0,
+                explanation: 'تُحذف الهمزة لأنها وقعت بين اسمين علمين (خالد - سعد)'
+            },
+            {
+                type: 'analysis',
+                question: 'حلل الجملة التالية واختر السبب الصحيح لكتابة "بن" بدون همزة:',
+                text: 'زيد بن ثابت كاتب الوحي',
+                options: [
+                    'لأنها وقعت بين اسمين علمين',
+                    'لأنها دخل عليها نداء',
+                    'لأنها وقعت في أول السطر',
+                    'لأنها لم تقع بين اسمين علمين'
+                ],
+                correct: 0,
+                explanation: 'السبب الصحيح: وقعت بين اسمين علمين (زيد - ثابت) فتُحذف الهمزة'
+            },
+            {
+                type: 'analysis',
+                question: 'حلل الجملة التالية واختر السبب الصحيح لكتابة "ابن" بالهمزة:',
+                text: 'رأيت ابن المدير في المدرسة',
+                options: [
+                    'لأنها وقعت بين اسمين علمين',
+                    'لأنها لم تقع بين اسمين علمين',
+                    'لأنها دخل عليها نداء',
+                    'لأنها وقعت في أول السطر'
+                ],
+                correct: 1,
+                explanation: 'السبب الصحيح: لم تقع بين اسمين علمين (المدير ليس علم شخص) فتُثبت الهمزة'
+            },
+            {
+                type: 'comparison',
+                question: 'قارن بين الجملتين واختر الفرق الصحيح:',
+                text: 'الجملة الأولى: محمد بن سالم\nالجملة الثانية: ابن سالم طالب',
+                options: [
+                    'الأولى بين علمين، الثانية ليست بين علمين',
+                    'الأولى في النداء، الثانية ليست في النداء',
+                    'الأولى في أول السطر، الثانية ليست في أول السطر',
+                    'لا يوجد فرق بينهما'
+                ],
+                correct: 0,
+                explanation: 'في الأولى وقعت بين علمين (محمد-سالم) فحُذفت، في الثانية لم تقع بين علمين فأُثبتت'
+            },
+            {
+                type: 'application',
+                question: 'طبق القاعدة على الجملة التالية:',
+                text: 'قال المعلم: يا ... أحمد، اقرأ الدرس',
+                options: ['بن', 'ابن'],
+                correct: 0,
+                explanation: 'تُحذف الهمزة لأنها دخل عليها نداء (يا) - هذا تطبيق مباشر للقاعدة'
+            },
+            {
+                type: 'tricky',
+                question: 'سؤال دقيق: اختر الكتابة الصحيحة في هذا السياق:',
+                text: 'قرأت عن عمرو ... العاص في كتاب التاريخ',
+                options: ['بن', 'ابن'],
+                correct: 0,
+                explanation: 'تُحذف الهمزة رغم وجود "عن" قبلها، لأن القاعدة تنظر لوقوعها بين علمين (عمرو - العاص)'
+            },
+            {
+                type: 'multiple',
+                question: 'اختر جميع الجمل التي تُحذف فيها همزة "ابن":',
+                options: [
+                    'علي بن أبي طالب',
+                    'يا بن الكريم',
+                    'ابن الطبيب مريض',
+                    'سعد بن معاذ'
+                ],
+                correct: [0, 1, 3],
+                explanation: 'تُحذف في الجمل الأولى والثانية والرابعة (بين علمين أو بعد نداء)'
+            },
+            {
+                type: 'multiple',
+                question: 'اختر جميع الجمل التي تُثبت فيها همزة "ابن":',
+                options: [
+                    'ابن خلدون مؤرخ عظيم',
+                    'محمد بن راشد',
+                    'هذا ابن جاري',
+                    'يا بن عمي'
+                ],
+                correct: [0, 2],
+                explanation: 'تُثبت في الجملة الأولى (أول السطر) والثالثة (ليست بين علمين)'
+            },
+            {
+                type: 'choice',
+                question: 'اختر الكتابة الصحيحة:',
+                text: 'فاطمة ... زياد طالبة متفوقة',
+                options: ['بنت', 'ابنة'],
+                correct: 0,
+                explanation: 'تُحذف الهمزة لأنها وقعت بين اسمين علمين (فاطمة - زياد)'
+            },
+            {
+                type: 'choice',
+                question: 'اختر الكتابة الصحيحة:',
+                text: '... عمي قادمة غداً',
+                options: ['بنت', 'ابنة'],
+                correct: 1,
+                explanation: 'تُثبت الهمزة لأنها لم تقع بين اسمين علمين'
+            },
+            {
+                type: 'choice',
+                question: 'اختر الكتابة الصحيحة:',
+                text: 'يا ... الكريمة، اقتربي',
+                options: ['بنت', 'ابنة'],
+                correct: 0,
+                explanation: 'تُحذف الهمزة لأنها دخل عليها نداء (يا)'
+            },
+            {
+                type: 'contextual',
+                question: 'في أي من السياقات التالية تُكتب "ابن" بالهمزة؟',
+                text: 'اختر السياق الصحيح:',
+                options: [
+                    'عندما تقع بين اسمين علمين',
+                    'عندما تقع في بداية الجملة أو السطر',
+                    'عندما يدخل عليها نداء',
+                    'عندما تأتي بعد حرف جر'
+                ],
+                correct: 1,
+                explanation: 'تُثبت الهمزة عندما تقع في بداية الجملة أو السطر، حتى لو كانت بين علمين'
+            },
+            {
+                type: 'error_detection',
+                question: 'اكتشف الخطأ في الجملة التالية:',
+                text: 'التقيت بـ ابن خالد في السوق',
+                options: [
+                    'يجب كتابتها "بن خالد"',
+                    'الكتابة صحيحة كما هي',
+                    'يجب إضافة همزة وصل',
+                    'يجب حذف حرف الجر'
+                ],
+                correct: 1,
+                explanation: 'الكتابة صحيحة لأن "ابن" لم تقع بين اسمين علمين (خالد وحده ليس كافياً)'
+            },
+            {
+                type: 'advanced',
+                question: 'سؤال متقدم: أيهما صحيح في هذا السياق؟',
+                text: 'كتب الشاعر: "أنا ... الصحراء، عاشق الحرية"',
+                options: ['بن', 'ابن'],
+                correct: 1,
+                explanation: 'تُثبت الهمزة لأن "الصحراء" ليس اسم علم شخص، بل اسم مكان مجازي في السياق الشعري'
             }
-            resultDiv.style.display = 'block';
-            inputField.disabled = true;
-            document.getElementById('hib-complete-score').textContent = hibCompleteScore;
+        ];
+
+        let currentExercise = 0;
+        let score = 0;
+        let userAnswers = [];
+
+        function getExerciseTypeLabel(type) {
+            const labels = {
+                'choice': 'اختيار واحد',
+                'multiple': 'اختيار متعدد',
+                'analysis': 'تحليل القاعدة',
+                'comparison': 'مقارنة',
+                'application': 'تطبيق',
+                'tricky': 'سؤال دقيق',
+                'contextual': 'فهم السياق',
+                'error_detection': 'اكتشاف الخطأ',
+                'advanced': 'متقدم'
+            };
+            return labels[type] || 'تدريب';
         }
 
-        // اختيار خيار في أسئلة صح وخطأ
-        function hibSelectTF(element, isCorrect) {
-            const questionDiv = element.closest('.hib-question');
-            const options = questionDiv.querySelectorAll('.hib-option');
-            options.forEach(opt => opt.classList.remove('selected'));
-            element.classList.add('selected');
-            const questionText = questionDiv.querySelector('h4').textContent;
-            hibSelectedAnswers[questionText] = isCorrect;
-            questionDiv.querySelector('.hib-btn').style.display = 'inline-block';
+        function initializeExercises() {
+            currentExercise = 0;
+            score = 0;
+            userAnswers = [];
+            document.getElementById('final-results').classList.add('hidden');
+            updateProgress();
+            showExercise();
         }
 
-        // التحقق من إجابة أسئلة صح وخطأ
-        function hibCheckTF(questionNum) {
-            const questionDiv = document.querySelector(`#hib-truefalse .hib-question:nth-child(${questionNum + 1})`);
-            const selectedOption = questionDiv.querySelector('.hib-option.selected');
-            const resultDiv = document.getElementById(`hib-tf-result-${questionNum}`);
-            const questionText = questionDiv.querySelector('h4').textContent;
-            const isCorrect = hibSelectedAnswers[questionText];
+        function updateProgress() {
+            const progress = (currentExercise / exercises.length) * 100;
+            document.getElementById('progress-bar').style.width = progress + '%';
+            document.getElementById('progress-text').textContent = `${currentExercise} / ${exercises.length}`;
+        }
+
+        function showExercise() {
+            if (currentExercise >= exercises.length) {
+                showFinalResults();
+                return;
+            }
+
+            const exercise = exercises[currentExercise];
+            const container = document.getElementById('exercises-container');
+            
+            let html = `
+                <div class="exercise-card bg-white rounded-xl shadow-lg p-8 mb-8">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-xl font-bold text-gray-800">السؤال ${currentExercise + 1}</h3>
+                        <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
+                            ${getExerciseTypeLabel(exercise.type)}
+                        </span>
+                    </div>
+                    
+                    <p class="arabic-text text-lg mb-6 text-gray-700">${exercise.question}</p>
+                    ${exercise.type === 'multiple' ? '<p class="text-sm text-blue-600 mb-4 font-medium">📝 يمكنك اختيار أكثر من إجابة واحدة</p>' : ''}
+                    <div class="bg-gray-50 p-4 rounded-lg mb-6">
+                        <p class="arabic-text text-xl font-bold text-center">${exercise.text}</p>
+                    </div>
+                    
+                    <div class="space-y-3 mb-6" id="options-container">
+            `;
+
+            exercise.options.forEach((option, index) => {
+                const inputType = exercise.type === 'multiple' ? 'checkbox' : 'radio';
+                html += `
+                    <label class="flex items-center p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
+                        <input type="${inputType}" name="answer" value="${index}" class="ml-3 text-blue-600">
+                        <span class="arabic-text text-lg">${option}</span>
+                    </label>
+                `;
+            });
+
+            html += `
+                    </div>
+                    
+                    <div class="flex justify-center">
+                        <button onclick="checkAnswer()" class="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-lg font-bold transition-colors">
+                            تحقق من الإجابة
+                        </button>
+                    </div>
+                    
+                    <div id="result-container" class="hidden mt-6"></div>
+                </div>
+            `;
+
+            container.innerHTML = html;
+        }
+
+        function checkAnswer() {
+            const exercise = exercises[currentExercise];
+            const selectedInputs = document.querySelectorAll('input[name="answer"]:checked');
+            const selectedValues = Array.from(selectedInputs).map(input => parseInt(input.value));
+            
+            // التحقق من اختيار إجابة
+            if (selectedValues.length === 0) {
+                showMessage('يرجى اختيار إجابة قبل المتابعة', 'warning');
+                return;
+            }
+            
+            let isCorrect = false;
+            
+            if (exercise.type === 'multiple') {
+                isCorrect = selectedValues.length === exercise.correct.length && 
+                           selectedValues.every(val => exercise.correct.includes(val)) &&
+                           exercise.correct.every(val => selectedValues.includes(val));
+            } else {
+                isCorrect = selectedValues.length === 1 && selectedValues[0] === exercise.correct;
+            }
+
+            userAnswers.push({
+                question: currentExercise,
+                selected: selectedValues,
+                correct: isCorrect
+            });
 
             if (isCorrect) {
-                selectedOption.classList.add('correct');
-                resultDiv.className = 'hib-result hib-correct-result';
-                resultDiv.textContent = '🎉 إجابة صحيحة!';
-                hibTfScore++;
-            } else {
-                selectedOption.classList.add('incorrect');
-                resultDiv.className = 'hib-result hib-incorrect-result';
-                resultDiv.textContent = '❌ إجابة خاطئة';
+                score++;
             }
-            resultDiv.style.display = 'block';
-            questionDiv.querySelector('.hib-btn').style.display = 'none';
-            document.getElementById('hib-tf-score').textContent = hibTfScore;
+
+            showResult(isCorrect, exercise.explanation);
         }
 
-        // التحقق من تصحيح الأخطاء
-        function hibCheckCorrection(questionNum, correctAnswer) {
-            const inputField = document.getElementById(`hib-correct-${questionNum}`);
-            const userAnswer = inputField.value.trim();
-            const resultDiv = document.getElementById(`hib-correct-result-${questionNum}`);
-
-            if (userAnswer === correctAnswer) {
-                resultDiv.className = 'hib-result hib-correct-result';
-                resultDiv.textContent = '🎉 تصحيح ممتاز!';
-                inputField.style.borderColor = '#27ae60';
-                hibCorrectScore++;
-            } else {
-                resultDiv.className = 'hib-result hib-incorrect-result';
-                resultDiv.textContent = `❌ تصحيح خاطئ. الإجابة الصحيحة: "${correctAnswer}"`;
-                inputField.style.borderColor = '#e74c3c';
-            }
-            resultDiv.style.display = 'block';
-            inputField.disabled = true;
-            document.getElementById('hib-correct-score').textContent = hibCorrectScore;
+        function showResult(isCorrect, explanation) {
+            const resultContainer = document.getElementById('result-container');
+            const className = isCorrect ? 'correct' : 'incorrect';
+            const icon = isCorrect ? '✅' : '❌';
+            const message = isCorrect ? 'إجابة صحيحة!' : 'إجابة خاطئة';
+            
+            resultContainer.innerHTML = `
+                <div class="${className} p-4 rounded-lg border-2">
+                    <p class="font-bold text-lg mb-2">${icon} ${message}</p>
+                    <p class="arabic-text">${explanation}</p>
+                    <button onclick="nextExercise()" class="mt-4 bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-bold transition-colors">
+                        السؤال التالي
+                    </button>
+                </div>
+            `;
+            
+            resultContainer.classList.remove('hidden');
+            
+            // تعطيل الخيارات
+            document.querySelectorAll('input[name="answer"]').forEach(input => {
+                input.disabled = true;
+            });
+            document.querySelector('button[onclick="checkAnswer()"]').style.display = 'none';
         }
 
-        // وظائف السحب والإفلات
-        document.addEventListener('DOMContentLoaded', function() {
-            const draggableItems = document.querySelectorAll('.hib-draggable-item');
-            const dropZones = document.querySelectorAll('.hib-drop-zone');
-
-            draggableItems.forEach(item => {
-                item.addEventListener('dragstart', function(e) {
-                    hibDraggedElement = this;
-                    this.classList.add('dragging');
-                });
-                item.addEventListener('dragend', function(e) {
-                    this.classList.remove('dragging');
-                });
-            });
-
-            dropZones.forEach(zone => {
-                zone.addEventListener('dragover', function(e) {
-                    e.preventDefault();
-                    this.classList.add('drag-over');
-                });
-                zone.addEventListener('dragleave', function(e) {
-                    this.classList.remove('drag-over');
-                });
-                zone.addEventListener('drop', function(e) {
-                    e.preventDefault();
-                    this.classList.remove('drag-over');
-
-                    if (hibDraggedElement) {
-                        const droppedItems = this.querySelector('.hib-dropped-items');
-                        const newItem = document.createElement('div');
-                        newItem.className = 'hib-dropped-item';
-                        newItem.textContent = hibDraggedElement.textContent;
-                        newItem.dataset.correct = hibDraggedElement.dataset.correct;
-                        newItem.dataset.zone = this.id;
-
-                        droppedItems.appendChild(newItem);
-                        hibDraggedElement.style.display = 'none';
-                        hibDraggedElement = null;
-                    }
-                });
-            });
-        });
-
-        // التحقق من التصنيف
-        function hibCheckClassification() {
-            const droppedItems = document.querySelectorAll('.hib-dropped-item');
-            let correct = 0;
-            let total = droppedItems.length;
-
-            droppedItems.forEach(item => {
-                const correctZone = item.dataset.correct;
-                const currentZone = item.dataset.zone;
-
-                if (correctZone === currentZone) {
-                    item.classList.add('correct');
-                    correct++;
-                } else {
-                    item.classList.add('incorrect');
-                }
-            });
-
-            hibClassifyScore = correct;
-            document.getElementById('hib-classify-score').textContent = hibClassifyScore;
-
-            const resultDiv = document.getElementById('hib-classify-result');
-            if (correct === total && total > 0) {
-                resultDiv.className = 'hib-result hib-correct-result';
-                resultDiv.textContent = `🎉 ممتاز! صنفت جميع الأمثلة بشكل صحيح (${correct}/${total})`;
-            } else {
-                resultDiv.className = 'hib-result hib-incorrect-result';
-                resultDiv.textContent = `📊 النتيجة: ${correct} من ${total} صحيحة. راجع الأمثلة الخاطئة وحاول مرة أخرى.`;
-            }
-            resultDiv.style.display = 'block';
+        function nextExercise() {
+            currentExercise++;
+            updateProgress();
+            showExercise();
         }
+
+        function showFinalResults() {
+            const percentage = Math.round((score / exercises.length) * 100);
+            let message = '';
+            let emoji = '';
+            
+            if (percentage >= 90) {
+                message = 'ممتاز جداً! أتقنت القاعدة بشكل رائع';
+                emoji = '🏆';
+            } else if (percentage >= 80) {
+                message = 'جيد جداً! تحتاج لمراجعة بسيطة';
+                emoji = '🥇';
+            } else if (percentage >= 70) {
+                message = 'جيد! تحتاج لمزيد من التدريب';
+                emoji = '🥈';
+            } else {
+                message = 'تحتاج لمراجعة القاعدة والمزيد من التدريب';
+                emoji = '📚';
+            }
+
+            document.getElementById('final-score').innerHTML = `
+                <div class="text-4xl mb-4">${emoji}</div>
+                <div class="text-2xl font-bold text-gray-800 mb-2">النتيجة: ${score} من ${exercises.length}</div>
+                <div class="text-xl text-gray-600 mb-4">النسبة المئوية: ${percentage}%</div>
+                <div class="text-lg text-gray-700">${message}</div>
+            `;
+            
+            document.getElementById('final-results').classList.remove('hidden');
+            document.getElementById('exercises-container').innerHTML = '';
+        }
+
+        function showMessage(message, type = 'info') {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `fixed top-4 right-4 p-4 rounded-lg shadow-lg z-50 ${
+                type === 'warning' ? 'bg-yellow-100 border-yellow-400 text-yellow-800' : 
+                type === 'error' ? 'bg-red-100 border-red-400 text-red-800' : 
+                'bg-blue-100 border-blue-400 text-blue-800'
+            } border-2`;
+            messageDiv.textContent = message;
+            
+            document.body.appendChild(messageDiv);
+            
+            setTimeout(() => {
+                messageDiv.remove();
+            }, 3000);
+        }
+
+        function restartExercises() {
+            initializeExercises();
+        }
+
+        // تشغيل التدريبات عند تحميل الصفحة
+        window.onload = function() {
+            initializeExercises();
+        };
     </script>
-</body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'991ad120262ef9d7',t:'MTc2MDk4NzQ0My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
